@@ -1,0 +1,37 @@
+---
+title: "TidyTuesday - 08-04-19"
+author: "Tom Gerlach"
+date: "8 4 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Loading
+
+```{r libraries-and-data, message=FALSE, warning=FALSE}
+library("tidyverse")
+library("kableExtra")
+library("knitr")
+bike_traffic <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-04-02/bike_traffic.csv")
+
+```
+
+# Deskriptive Analyse
+
+```{r descriptives, message=FALSE, warning=FALSE, fig.width=10}
+bike_traffic %>%
+  head() %>% 
+  kable() %>% 
+  kable_styling()
+
+bike_traffic %>% 
+  ggplot() +
+  aes(x=crossing, y=bike_count) +
+  labs(title="The following graph is not suitable to show the information due to outliers", subtitle="Boxplot for the measured count of cyclists at different crossings in Seattle", x="cyclists count", y="crossing") +
+  geom_boxplot() + 
+  coord_flip()
+```
+Aufgrund der starken Ausreißer muss der Maßstab der Grafik hochgesetzt werden. Somit lassen sich keine wesentlichen Unterschiede zwischen den gemessenen Farhrradfahrern an den jeweiligen Kreuzungen erkennen.
